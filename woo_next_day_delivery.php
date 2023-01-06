@@ -42,5 +42,14 @@ function checkout_address_details_fields( $fields ) {
 	<?php
 
  WC()->cart->total += 7.25;//this one update totle
+
     return $fields;
+}
+
+
+
+
+add_action( 'woocommerce_checkout_before_order_review', 'my_wc_checkout_before_order_review', 10, 0 );
+function my_wc_checkout_before_order_review() {
+    echo '<input type="checkbox" name="next_day_del" id="next_day_del">';
 }
