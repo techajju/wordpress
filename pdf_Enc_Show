@@ -1,0 +1,17 @@
+add_shortcode( 'pdf',function(){
+	$pdf_path = 'http://localhost/test_site_wp/wp-content/uploads/2023/02/dummy.pdf';
+	 $ext = pathinfo($pdf_path, PATHINFO_EXTENSION);
+	 //return $imageFileType = strtolower(pathinfo($pdf_path,PATHINFO_EXTENSION));
+
+	 $pdf_contents = file_get_contents($pdf_path);
+	
+
+	$pdf_base64 = base64_encode($pdf_contents);
+	 $pdf = 'data:application/pdf;base64,'. $pdf_base64.'" type="application/pdf';
+
+	return '<object data="'.$pdf.'" type="application/pdf" width="100%" height="600px">
+	<p>Your browser doesnt support PDFs. <a href="'.$pdf_path.'">Download the PDF</a> instead.</p>
+  </object>';
+
+ 
+});
