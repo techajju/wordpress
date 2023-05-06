@@ -1,0 +1,70 @@
+
+// reletable posts
+add_action( 'rest_api_init', function () {
+	register_rest_route( 'my_route/v1', '/categories', array(
+	  'methods' => 'GET',
+	  'callback' => 'get_relevance_post_categories',
+	) );
+  } );
+
+function get_relevance_post_categories($request){
+	$response = array();
+	$error = new WP_Error();
+
+	$cat_slug = $request['cat_slug']; 
+
+	$args = array( 'numberposts' => -1, 'category_name' => $cat_slug);
+    $posts = get_posts( $args );
+    $cat_slug;
+ 
+
+	if($cat_slug){
+			$res = [];
+			$res_id = [];
+			foreach ($posts as $p_key => $p_value) { 
+
+				$res [$p_value->ID] = $p_value->post_title;
+				$res_id [] = $p_value->ID;
+
+			}
+  					
+     		$newArray = array_filter($res, function($value) { 
+        		return strpos($value, 'Chandigarh ') !== false;
+			}); 
+ 			 
+			$single_post_data = [];
+			foreach($newArray as $n_key => $n_value) {
+				$single_post_data[] = get_post($n_key);	 
+			}
+
+			$single_post_data; //first filter data;
+
+			$args = array(
+				'post__not_in'     => array($res_id), 
+				'category_name'    => $cat_slug, 
+				'post_type'        => 'post', 
+				'post_status'      => 'publish', 
+			);
+			// The Query
+			$the_query = new WP_Query( $args );
+
+			//print_r($single_post_data);
+				$get_post_sec_posts = []; 
+			foreach ($the_query->posts as $t_key => $t_value) {
+				print_r($t_value->ID); echo "\n";
+				$get_post_sec_posts [] = get_post($t_value->ID);
+			}
+
+			$single_post_data;// first posts array
+			$get_post_sec_posts;// sec post filters array
+
+	}
+//print_r($$newArray);
+
+ $response = $the_query->posts;
+
+return $response;
+}
+
+
+
