@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "b27d2aeb-a170-4574-87eb-813ddc94838d",
+		"name": "wp-user-profile-udpate-psotman-collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15971223",
+		"_collection_link": "https://restless-meteor-986209.postman.co/workspace/Team-Workspace~45ef453f-dce6-48ee-8d08-4ed5a926976e/collection/15971223-b27d2aeb-a170-4574-87eb-813ddc94838d?action=share&creator=15971223&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "http://localhost/test_site_wp/wp-json/jwt-auth/v1/token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\" : \"test\",\r\n\"password\" : \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/test_site_wp/wp-json/jwt-auth/v1/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"test_site_wp",
+						"wp-json",
+						"jwt-auth",
+						"v1",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/test_site_wp/wp-json/myplugin/v1/users/2/avatar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "user_id",
+						"value": " 2",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "display_name",
+						"value": " test1111",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "user_email",
+						"value": " test1111@gamil.com",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "user_url",
+						"value": " test1111@gamil.com",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 2,\r\n    \"avatar\" : \"https://tinyjpg.com/images/image-resizing-api.png\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/test_site_wp/wp-json/myplugin/v1/users/2/avatar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"test_site_wp",
+						"wp-json",
+						"myplugin",
+						"v1",
+						"users",
+						"2",
+						"avatar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost/test_site_wp/wp-json/my-plugin/v1/update-user-profile",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "user_id",
+						"value": " 2",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "display_name",
+						"value": " test1111",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "user_email",
+						"value": " test1111@gamil.com",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "user_url",
+						"value": " test1111@gamil.com",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "user_id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "display_name",
+							"value": "display_name",
+							"type": "text"
+						},
+						{
+							"key": "user_email",
+							"value": "user_email@gamil.com",
+							"type": "text"
+						},
+						{
+							"key": "user_url",
+							"value": "http://localhost/test_site_wp/wp-json/my-plugin/v1/update-user-profile",
+							"type": "text"
+						},
+						{
+							"key": "async-upload",
+							"type": "file",
+							"src": "/C:/Users/Ajay Singh/Downloads/12121.png"
+						},
+						{
+							"key": "",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/test_site_wp/wp-json/my-plugin/v1/update-user-profile",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"test_site_wp",
+						"wp-json",
+						"my-plugin",
+						"v1",
+						"update-user-profile"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
