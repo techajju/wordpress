@@ -1,0 +1,186 @@
+
+  add_shortcode('upsell_cross_sell',function(){
+
+    $code = '';
+    $page_id = get_the_ID();
+    
+    
+     $catsData = get_field('selling_products' , $page_id);
+
+/* echo "<pre>";
+print_r($catsData) ;
+echo "</pre>"; */
+
+
+$code .= '<div class="slider" id="slider">
+<div class="slide" id="slide">';
+    foreach ($catsData as $key => $value) {
+        $p_id = $value->ID;
+        $p_title = $value->post_title;
+        $p_link = get_permalink( $p_id );
+         $p_images = get_the_post_thumbnail($p_id, 'thumbnail');
+         
+  
+$product = wc_get_product($p_id);
+
+// Get the product featured image ID
+$image_id = $product->get_image_id();
+
+// Get the image URL
+$image_url = wp_get_attachment_image_src($image_id, 'full')[0];
+
+        //$code .= '<div class="item">';
+        //$_product = wc_get_product( $p_id );
+       // $_product->get_price();
+
+       // echo do_shortcode("[product id='$p_id']");
+$code .= '  <a class="item" href ='.$p_link.'>
+        <img src='.$image_url.' alt="">
+        <p>'.$p_title.'</p>
+ 
+
+</a>
+';
+          //  $code .='</div>';
+
+    }
+
+
+$code .= '
+ 
+</div>
+<button class="ctrl-btn pro-prev">Prev</button>
+<button class="ctrl-btn pro-next">Next</button>
+</div>
+
+<style>
+
+.slider {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    margin: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  
+  .slider::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .slider .slide {
+    display: flex;
+    position: absolute;
+    left: 0;
+    transition: 0.3s left ease-in-out;
+  }
+  
+  .slider .item {
+    margin-right: 10px;
+  }
+  
+  .slider .item:last-child {
+    margin-right: 0;
+  }
+  
+  .ctrl {
+    text-align: center;
+    margin-top: 5px;
+  }
+  
+  .ctrl-btn {
+    padding: 20px 20px;
+    min-width: 50px;
+    background: #fff;
+    border: none;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+  
+    position: absolute;
+    top: 50%;
+    margin-top: -27.5px;
+  }
+  
+  .ctrl-btn.pro-prev {
+    left: 0;
+  }
+  
+  .ctrl-btn.pro-next {
+    right: 0;
+  }
+  
+
+</style>
+
+<script>
+
+"use strict";
+
+productScroll();
+
+function productScroll() {
+  let slider = document.getElementById("slider");
+  let next = document.getElementsByClassName("pro-next");
+  let prev = document.getElementsByClassName("pro-prev");
+  let slide = document.getElementById("slide");
+  let item = document.getElementById("slide");
+
+  for (let i = 0; i < next.length; i++) {
+    //refer elements by class name
+
+    let position = 0; //slider postion
+
+    prev[i].addEventListener("click", function() {
+      //click previos button
+      if (position > 0) {
+        //avoid slide left beyond the first item
+        position -= 1;
+        translateX(position); //translate items
+      }
+    });
+
+    next[i].addEventListener("click", function() {
+      if (position >= 0 && position < hiddenItems()) {
+        //avoid slide right beyond the last item
+        position += 1;
+        translateX(position); //translate items
+      }
+    });
+  }
+
+  function hiddenItems() {
+    //get hidden items
+    let items = getCount(item, false);
+    let visibleItems = slider.offsetWidth / 210;
+    return items - Math.ceil(visibleItems);
+  }
+}
+
+function translateX(position) {
+  //translate items
+  slide.style.left = position * -210 + "px";
+}
+
+function getCount(parent, getChildrensChildren) {
+  //count no of items
+  let relevantChildren = 0;
+  let children = parent.childNodes.length;
+  for (let i = 0; i < children; i++) {
+    if (parent.childNodes[i].nodeType != 3) {
+      if (getChildrensChildren)
+        relevantChildren += getCount(parent.childNodes[i], true);
+      relevantChildren++;
+    }
+  }
+  return relevantChildren;
+}
+
+</script>
+';
+
+return $code; 
+
+  });
+  
